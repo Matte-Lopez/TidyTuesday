@@ -1,0 +1,44 @@
+---
+title: "Homework1"
+Author: "Matté"
+format: html
+editor: visual
+---
+
+## Tidy Tuesday 1 - 2025/01/21
+### Research Question: What is the relationship, when accounting for season, between the host country of the expedition and whether oxygen was used and if an accident occured during the expedition?
+
+```{r}
+library("tidytuesdayR")
+library("tidyverse")
+library("ggplot2")
+
+```
+
+```{r}
+tuesdata <- tidytuesdayR::tt_load(2025, week = 3)
+
+exped_tidy <- tuesdata$exped_tidy
+peaks_tidy <- tuesdata$peaks_tidy
+
+exped_tidy
+
+```
+
+```{r}
+table(exped_tidy$NATION)
+
+exped_tidy2<-exped_tidy %>% 
+  mutate(APPROACH1 = ifelse(APPROACH == "Lukla->Namche->Lobuche->BC", "Yes", "No")) %>% filter(NATION %in% c("Nepal","USA","UK","India","Austria")) %>% filter(APPROACH1=="Yes")
+
+
+exped_tidy2 %>% ggplot(aes(x=NATION,fill=NATION))+geom_bar()+facet_wrap(~SEASON_FACTOR)+ labs(title = "Comparing the number of Lukla->Namche->Lobuche->BC approaches taken
+in spring amongst the top 5 countries with the 
+most entries in the expedition dataset", x = "Country", y = "Count of Yes Responses") +
+  theme_minimal()
+
+
+
+
+
+```

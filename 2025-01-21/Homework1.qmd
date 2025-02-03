@@ -6,7 +6,8 @@ editor: visual
 ---
 
 ## Tidy Tuesday 1 - 2025/01/21
-### Research Question: What is the relationship, when accounting for season, between the host country of the expedition and whether oxygen was used and if an accident occured during the expedition?
+
+### Research Question: How popular is the Lukla->Namche->Lobuche->BC approach? 
 
 ```{r}
 library("tidytuesdayR")

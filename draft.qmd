@@ -1,0 +1,25 @@
+---
+title: "Homework-1"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+```
+
+```{r}
+exped_tidy <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/exped_tidy.csv')
+peaks_tidy <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-21/peaks_tidy.csv')
+
+exped_tidy
+peaks_tidy
+```
+
+
+```{r}
+ggplot(exped_tidy,aes(x=ACCIDENTS,y= O2USED,color=NATION))+geom_bar()
+  
+```

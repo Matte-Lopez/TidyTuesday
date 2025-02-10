@@ -6,7 +6,7 @@ author: "Matté Lopez"
 ---
 
 ## Research Question:
-### What proportion of people in Boone County, MO had access to plumbing in 2022?
+### How does plumbing access in large counties across the U.S. compare?
 
 ```{r}
 install.packages("tidytuesdayR")
@@ -14,6 +14,9 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(tidyr)
+library(stringr)
+library(grid)
+library(gridExtra) 
 ```
 
 ```{r}
@@ -26,13 +29,18 @@ selectcounties <- c("St.Louis County, Missouri", "Los Angeles County, California
 countydata <- water_insecurity_2022 %>%
   filter(name %in% selectcounties)
 
-countydata <- water_insecurity_2023 %>%
+countydata2 <- water_insecurity_2023 %>%
   filter(name %in% selectcounties)
 
 
-Plot1<-ggplot(countydata) + geom_col(aes(x=name,y=percent_lacking_plumbing))+ 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))+labs(y="Percent Lacking Plumbing",x="Cities)
+Plot1<-ggplot(countydata) + geom_col(aes(x=name,y=percent_lacking_plumbing),fill="darkred")+
+  scale_y_continuous(limits = c(0, 0.12))+theme_linedraw()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),axis.title.x=element_text())+labs(y="Percent Lacking Plumbing",x=NULL)
 
+Plot2<-ggplot(countydata2)+geom_col(aes(x=name,y=percent_lacking_plumbing),fill="darkred")+
+  scale_y_continuous(limits = c(0, 0.12))+theme_linedraw()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),axis.title.x=element_text())+labs(y="Percent Lacking Plumbing",x=NULL)
 
+grid.arrange(Plot1, Plot2, ncol = 2,top = textGrob ("Plumbing Access in U.S. counties 2022 vs 2023 ", gp = gpar(fontsize = 14, fontface = "plain")))
 ```
 

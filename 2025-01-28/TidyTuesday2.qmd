@@ -1,0 +1,38 @@
+---
+title: "TidyTuesday2"
+format: html
+editor: visual
+author: "Matté Lopez"
+---
+
+## Research Question:
+### What proportion of people in Boone County, MO had access to plumbing in 2022?
+
+```{r}
+install.packages("tidytuesdayR")
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+water_insecurity_2022 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
+water_insecurity_2023 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2023.csv')
+
+
+selectcounties <- c("St.Louis County, Missouri", "Los Angeles County, California", "Dallas County, Texas", "Broward County, Texas","Fairfax County, Virginia","Honolulu County, Hawaii", "Philadelphia County, Pennsylvania", "New York County, New York")
+
+countydata <- water_insecurity_2022 %>%
+  filter(name %in% selectcounties)
+
+countydata <- water_insecurity_2023 %>%
+  filter(name %in% selectcounties)
+
+
+Plot1<-ggplot(countydata) + geom_col(aes(x=name,y=percent_lacking_plumbing))+ 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))+labs(y="Percent Lacking Plumbing",x="Cities)
+
+
+```
+

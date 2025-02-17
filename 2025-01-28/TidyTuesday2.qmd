@@ -6,10 +6,11 @@ author: "Matté Lopez"
 ---
 
 ## Research Question:
+
 ### How does plumbing access in large counties across the U.S. compare?
 
 ```{r}
-install.packages("tidytuesdayR")
+library(tidytuesdayR)
 library(ggplot2)
 library(tidyverse)
 library(dplyr)
@@ -43,4 +44,3 @@ Plot2<-ggplot(countydata2)+geom_col(aes(x=name,y=percent_lacking_plumbing),fill=
 
 grid.arrange(Plot1, Plot2, ncol = 2,top = textGrob ("Plumbing Access in U.S. counties 2022 vs 2023 ", gp = gpar(fontsize = 14, fontface = "plain")))
 ```
-

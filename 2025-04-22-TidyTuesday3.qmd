@@ -1,0 +1,62 @@
+---
+title: "TidyTuesday3"
+author: "Matté Lopez"
+format: html
+editor: visual
+---
+
+Research Question: What is the relationship between U.S. 'party holidays' and the number of fatal car crashes (1992-2016)
+
+```{r, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+```
+
+```{r, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+
+#exploration
+daily_accidents <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-22/daily_accidents.csv')
+daily_accidents_420 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-22/daily_accidents_420.csv')
+# 
+# factor(e420)
+# levels(daily_accidents_420$e420)
+# 
+# 
+# daily_accidents_420$e420 <- factor(daily_accidents_420$e420)
+# table(daily_accidents_420$e420)
+# 
+# 
+# daily_accidents_420$date <- as.Date(daily_accidents_420$date)  
+# 
+# start_year <- year(min(daily_accidents_420$date))  
+# end_year <- year(max(daily_accidents_420$date))   
+
+
+```
+
+
+```{r, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+daily_accidents_420_holidays <- daily_accidents_420 %>%
+  mutate(
+    holiday = case_when(
+      format(date, "%m-%d") == "04-20" ~ "Cannabis 4/20",
+      format(date, "%m-%d") == "03-17" ~ "St. Patrick's Day",
+      format(date, "%m-%d") == "05-05" ~ "Cinco de Mayo",
+      format(date, "%m-%d") == "12-31" ~ "New Year's Eve",
+      format(date, "%m-%d") == "01-01" ~ "New Year's Day",
+      format(date, "%m-%d") == "07-04" ~ "4th of July",
+      format(date, "%m-%d") == "10-31" ~ "Halloween",
+    )
+  ) %>% 
+  filter(!is.na(holiday))
+
+ggplot(daily_accidents_420_holidays,aes(x=fatalities_count,y=holiday))+
+  geom_bar(stat="identity",fill="darkblue",size=0.5)+theme_minimal()+
+  labs(title="Comparing The Amount of Fatal Car Crashes \n on U.S. Party Holidays (1992-2016)",y="Holiday",x="Number of Fatal Car Crashes")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+

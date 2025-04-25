@@ -7,7 +7,7 @@ editor: visual
 
 ## Tidy Tuesday 1 - 2025/01/21
 
-### Research Question: How popular is the Lukla->Namche->Lobuche->BC approach? 
+### Research Question: How popular is the Lukla-\>Namche-\>Lobuche-\>BC approach?
 
 ```{r}
 library("tidytuesdayR")
